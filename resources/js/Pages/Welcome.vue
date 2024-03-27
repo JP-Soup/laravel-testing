@@ -151,8 +151,6 @@ function handleImageError() {
                                             with Laravel, we recommend reading
                                             our documentation from beginning to
                                             end.
-                                            <p class="text-white text-2xl">{{ $page.props.laravelVersion }}</p>
-                                            
                                         </p>
                                     </div>
                                 </div>

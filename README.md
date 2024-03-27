@@ -1,66 +1,41 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Laravel + Vue + Playwright testing
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+This project has been setup in order to provide an example of how playwright.js can be utilised within a Laravel installation.
 
-## About Laravel
+### Running Playwright test
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+The playwright test file is located @../e2e/example.spec.js. The test is an end-to-test which registers a new user. The test uses faker.js to randomize user data.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+In order to run the test, two CLI processes need to be ran in parallel. The first is: php artisan serve. The second is: npx playwright test --ui.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Once the second command is ran, a new Playwright Test window will appear. Within the left pane of the window, example.spec.js should be visible. Click the dropdown to the left of the text 'example.spec.js' to drill down into the file and locate the test. There should now be a 'Complete registration process' test, which can be ran by clicking the play button next to the text.
 
-## Learning Laravel
+Note: You may have to click on Projects, which is located above the 'example.spec.js' text in order to tick which browsers you would prefer to run the test within.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Once you have selected all the browser environments you wish to run the test within, click the play button next to the 'Complete registration process' text.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+You should see the test running and all tests should pass. If a warning message appears regarding 'Teardown time', open up 'example.spec.js' file in a code editor and edit line 18 'test.setTimeout(60000)'. The timeout is set one minute, but when an instance of playwright is ran on different machines, the teardown process may take longer. I advise adjusting the 'test.setTimeout(60000)' to 'test.setTimeout(70000)' initially and incrementing if necessary.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### SQLite database management
 
-## Laravel Sponsors
+The sqlite database file is located @../database/database.sqlite. This will be the default testing database as DB_CONNECTION=sqlite is used within the .env file.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+In order to run the below scripts inside the CLI, first run: php artisan tinker
 
-### Premium Partners
+##### Check if users witin User
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+    $users = User::all()
 
-## Contributing
+##### Delete a user
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+    use DB;
 
-## Code of Conduct
+    $userId = 2;
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+    DB::delete('DELETE FROM users WHERE id = ?', [$userId]);
 
-## Security Vulnerabilities
+#### Delete all users
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+    use DB
 
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+    DB::delete('DELETE FROM users')
