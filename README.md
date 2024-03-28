@@ -24,7 +24,7 @@ Once one has selected all the browser environments one wishes to run the test wi
 
 One should see the test running and all tests should pass. If a warning message appears regarding 'Teardown time', open up the 'example.spec.js' file in a code editor and edit line 18, 'test.setTimeout(60000)'. The timeout is currently set to one minute, but when an instance of playwright is ran on different machines, the teardown process may take longer. Adjust the 'test.setTimeout(60000)' to 'test.setTimeout(70000)' initially and increment if necessary.
 
-Once the tests have been ran one can use the dropdown arrows located next to the text 'Complete registration process' and 'User can Register as new user' to drill down into the individual tests for each browser environment. If one clicks a listed browser (e.g. chromium) one will see a viualised run through of the test in the top-pane of the Playwright window. One can hover and move along the pane to view the progress of the test. One can also click on each test instruction to view the state of the application at that point in the test.
+Once the tests have been ran one can use the dropdown arrows located next to the text 'Complete registration process' and 'User can Register as new user' to drill down into the individual tests for each browser environment. If one clicks a listed browser (e.g. chromium) one will see a visualised run through of the test in the top-pane of the Playwright window. One can hover and move along the pane to view the progress of the test. One can also click on each test instruction to view the state of the application at that point in the test.
 
 ### SQLite database management
 
