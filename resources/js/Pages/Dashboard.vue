@@ -4,6 +4,7 @@ import { Head } from "@inertiajs/vue3";
 import { onMounted } from "vue";
 import markerIcon from "../../../node_modules/leaflet/dist/images/marker-icon.png";
 import leaflet from "leaflet";
+import LineChart from "@/Components/LineChart.vue";
 
 let myMap;
 let latlngs = [
@@ -77,10 +78,18 @@ onMounted(() => {
             >
                 <div className="grid grid-cols-3 gap-4">
                     <div
-                        className="row-span-1 rounded-md border-2 border-slate-800 border-solid h-[50dvh]"
+                        className="row-span-1 rounded-md border-2 border-slate-800 border-solid h-[100dvh]"
                     >
                         <div id="map" class="h-full w-full rounded-md"></div>
                     </div>
+                    <div className="grid grid-flow-row auto-rows-max gap-4">
+                        <div
+                            className="row-span-1 bg-slate-50 rounded-md border-2 border-slate-800 border-solid p-2"
+                        >
+                            <LineChart />
+                        </div>
+                    </div>
+                    ;
                 </div>
             </div>
         </div>
