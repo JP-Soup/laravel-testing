@@ -27,6 +27,8 @@ ChartJS.register(
     Legend
 );
 
+ChartJS.defaults.color = "#fff";
+
 const profit = [
     { year: 2017, count: 20000 },
     { year: 2018, count: 30000 },

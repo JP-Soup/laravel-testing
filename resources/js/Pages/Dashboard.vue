@@ -4,7 +4,13 @@ import { Head } from "@inertiajs/vue3";
 import { onMounted } from "vue";
 import markerIcon from "../../../node_modules/leaflet/dist/images/marker-icon.png";
 import leaflet from "leaflet";
-import LineChart from "@/Components/LineChart.vue";
+import Line from "@/Components/charts/Line.vue";
+import Radar from "@/Components/charts/Radar.vue";
+import Doughnut from "@/Components/charts/Doughnut.vue";
+import Checkbox from "primevue/checkbox";
+import Accordion from "primevue/accordion";
+import AccordionTab from "primevue/accordiontab";
+import { ref } from "vue";
 
 let myMap;
 let latlngs = [
@@ -50,6 +56,8 @@ onMounted(() => {
         .openTooltip()
         .addTo(myMap);
 });
+
+const pizza = ref();
 </script>
 
 <template>
@@ -77,19 +85,180 @@ onMounted(() => {
                 className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8 h-fit w-full"
             >
                 <div className="grid grid-cols-3 gap-4">
+                    <!-- First Column -->
                     <div
-                        className="row-span-1 rounded-md border-2 border-slate-800 border-solid h-[100dvh]"
+                        className="rounded-md border-2 border-slate-800 border-solid h-full"
                     >
                         <div id="map" class="h-full w-full rounded-md"></div>
                     </div>
+                    <!-- Second Column -->
                     <div className="grid grid-flow-row auto-rows-max gap-4">
                         <div
-                            className="row-span-1 bg-slate-50 rounded-md border-2 border-slate-800 border-solid p-2"
+                            className="row-span-1 flex items-center justify-center bg-transparent rounded-md border-2 border-slate-800 border-solid px-2 h-[30dvh]"
                         >
-                            <LineChart />
+                            <Line />
+                        </div>
+                        <div
+                            className="row-span-1 flex items-center justify-center bg-transparent rounded-md border-2 border-slate-800 border-solid p-2 h-[60dvh]"
+                        >
+                            <Radar />
+                        </div>
+                        <div
+                            className="row-span-1 flex items-center justify-center bg-transparent rounded-md border-2 border-slate-800 border-solid p-2 h-[60dvh]"
+                        >
+                            <Doughnut />
                         </div>
                     </div>
-                    ;
+                    <!-- Third Column -->
+                    <div className="grid grid-flow-row auto-rows-max gap-4">
+                        <!-- Checkbox -->
+                        <div
+                            class="card flex flex-wrap justify-center gap-3 text-white"
+                        >
+                            <div class="flex items-center">
+                                <Checkbox
+                                    v-model="pizza"
+                                    inputId="ingredient1"
+                                    name="pizza"
+                                    value="Cheese"
+                                />
+                                <label for="ingredient1" class="ml-2">
+                                    Cheese
+                                </label>
+                            </div>
+                            <div class="flex items-center">
+                                <Checkbox
+                                    v-model="pizza"
+                                    inputId="ingredient2"
+                                    name="pizza"
+                                    value="Mushroom"
+                                />
+                                <label for="ingredient2" class="ml-2">
+                                    Mushroom
+                                </label>
+                            </div>
+                            <div class="flex items-center">
+                                <Checkbox
+                                    v-model="pizza"
+                                    inputId="ingredient3"
+                                    name="pizza"
+                                    value="Pepper"
+                                />
+                                <label for="ingredient3" class="ml-2">
+                                    Pepper
+                                </label>
+                            </div>
+                            <div class="flex items-center">
+                                <Checkbox
+                                    v-model="pizza"
+                                    inputId="ingredient4"
+                                    name="pizza"
+                                    value="Onion"
+                                />
+                                <label for="ingredient4" class="ml-2">
+                                    Onion
+                                </label>
+                            </div>
+                        </div>
+                        <!-- Accordion -->
+                        <div class="card">
+                            <Accordion>
+                                <AccordionTab>
+                                    <template #header>
+                                        <span
+                                            class="flex items-center gap-2 w-full"
+                                        >
+                                            <Avatar
+                                                image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png"
+                                                shape="circle"
+                                            />
+                                            <span
+                                                class="font-bold whitespace-nowrap"
+                                                >Amy Elsner</span
+                                            >
+                                            <Badge value="3" class="ml-auto" />
+                                        </span>
+                                    </template>
+                                    <p class="m-0">
+                                        Lorem ipsum dolor sit amet, consectetur
+                                        adipiscing elit, sed do eiusmod tempor
+                                        incididunt ut labore et dolore magna
+                                        aliqua. Ut enim ad minim veniam, quis
+                                        nostrud exercitation ullamco laboris
+                                        nisi ut aliquip ex ea commodo consequat.
+                                        Duis aute irure dolor in reprehenderit
+                                        in voluptate velit esse cillum dolore eu
+                                        fugiat nulla pariatur. Excepteur sint
+                                        occaecat cupidatat non proident, sunt in
+                                        culpa qui officia deserunt mollit anim
+                                        id est laborum.
+                                    </p>
+                                </AccordionTab>
+                                <AccordionTab>
+                                    <template #header>
+                                        <span
+                                            class="flex items-center gap-2 w-full"
+                                        >
+                                            <Avatar
+                                                image="https://primefaces.org/cdn/primevue/images/avatar/onyamalimba.png"
+                                                shape="circle"
+                                            />
+                                            <span
+                                                class="font-bold whitespace-nowrap"
+                                                >Onyama Limba</span
+                                            >
+                                            <Badge value="4" class="ml-auto" />
+                                        </span>
+                                    </template>
+                                    <p class="m-0">
+                                        Sed ut perspiciatis unde omnis iste
+                                        natus error sit voluptatem accusantium
+                                        doloremque laudantium, totam rem
+                                        aperiam, eaque ipsa quae ab illo
+                                        inventore veritatis et quasi architecto
+                                        beatae vitae dicta sunt explicabo. Nemo
+                                        enim ipsam voluptatem quia voluptas sit
+                                        aspernatur aut odit aut fugit, sed quia
+                                        consequuntur magni dolores eos qui
+                                        ratione voluptatem sequi nesciunt.
+                                        Consectetur, adipisci velit, sed quia
+                                        non numquam eius modi.
+                                    </p>
+                                </AccordionTab>
+                                <AccordionTab>
+                                    <template #header>
+                                        <span
+                                            class="flex items-center gap-2 w-full"
+                                        >
+                                            <Avatar
+                                                image="https://primefaces.org/cdn/primevue/images/avatar/ionibowcher.png"
+                                                shape="circle"
+                                            />
+                                            <span
+                                                class="font-bold whitespace-nowrap"
+                                                >Ioni Bowcher</span
+                                            >
+                                            <Badge value="2" class="ml-auto" />
+                                        </span>
+                                    </template>
+                                    <p class="m-0">
+                                        At vero eos et accusamus et iusto odio
+                                        dignissimos ducimus qui blanditiis
+                                        praesentium voluptatum deleniti atque
+                                        corrupti quos dolores et quas molestias
+                                        excepturi sint occaecati cupiditate non
+                                        provident, similique sunt in culpa qui
+                                        officia deserunt mollitia animi, id est
+                                        laborum et dolorum fuga. Et harum quidem
+                                        rerum facilis est et expedita
+                                        distinctio. Nam libero tempore, cum
+                                        soluta nobis est eligendi optio cumque
+                                        nihil impedit quo minus.
+                                    </p>
+                                </AccordionTab>
+                            </Accordion>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
